@@ -29,7 +29,8 @@ rh_dir="${df_path}/config"
 files=`cd $rh_dir && find . -mindepth 1 -maxdepth 1 -not -iname '*_bak' `
 for file in $files; do
     file=${file##./}
-    echo "[ -e $HOME/$file ] || ln -s --verbose ${df_path}/config/$file ~/" >> $installsh
+    # echo "[ -e $HOME/$file ] || ln -s --verbose ${df_path}/config/$file ~/" >> $installsh
+    echo "[ -f  $HOME/$file ] && [ ! -h $HOME/$file ] && echo The file $HOME/$file already exists and is a regular file to backup || [ -h $HOME/$file ] || ln -s --verbose ${df_path}/config/$file ~/" >> $installsh
 done
 
 ## Istruction to create links to files in single_config_files.
@@ -42,7 +43,8 @@ if [[ -d "${config_files_dir}" ]]; then
     for file in $files; do
 	file=${file#./}
 	[ -d "$HOME/$(dirname $file)" ] || mkdir -p ~/$(dirname $file)/
-	echo "[ -e $HOME/$file ] || ln -s --verbose ~/${df_path}/single_config_files/$file ~/$(dirname $file)/" >> $installsh
+	# echo "[ -e $HOME/$file ] || ln -s --verbose ~/${df_path}/single_config_files/$file ~/$(dirname $file)/" >> $installsh
+	echo "[ -f  $HOME/$file ] && [ ! -h $HOME/$file ] && echo The file $HOME/$file already exists and is a regular file to backup || [ -h $HOME/$file ] || ln -s --verbose ~/${df_path}/single_config_files/$file ~/$(dirname $file)/" >> $installsh
     done
 fi
 
