@@ -51,6 +51,26 @@ function git-branch-prompt {
 # PS1="\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ "
 ##}}}
 
+##{{{ tmux functions
+tmux-panel () {
+    tmux_win_name="${1}"
+    shift
+    ## now $1 is the command 
+
+    if [ -n "${1}" ]; then
+        ${try} tmux kill-window -t :${tmux_win_name} ; tmux new-window -n ${tmux_win_name} -d "${1}"
+        shift
+        while [ -n "${1}" ]; do
+            ## echo "LOG: WORKING ON command ${1}"
+            tmux split-window -t ${tmux_win_name} -d "${1}"
+            ## tmux: better visualization
+            tmux select-layout -t ${tmux_win_name} tiled
+            shift
+        done
+    fi
+}
+##}}}
+
 ##{{{ generic functions
 q-ssh-copy() {
         ssh ${*:1} "cp  ~/.bashrc ~/.bashrc$(date); cat > ~/.bashrc" < ~/.bashrc
