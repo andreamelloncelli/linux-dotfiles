@@ -289,3 +289,7 @@ alias git-histall-sig="git log --pretty=format:\"%h %ad %G? |%d -----%s [%an]\" 
 
  # vars
 export EDITOR='vim'
+
+if [ -f ~/.bashrc_local ]; then
+    . ~/.bashrc_local
+fi
