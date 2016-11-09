@@ -237,7 +237,7 @@ alias rm='rm -i'
 
 # ----remote-important-part
 
-if [ -o $TMUX ] ; then cat /var/run/motd.dynamic  ;fi
+## if [ -o $TMUX ] ; then cat /var/run/motd.dynamic  ;fi
 
 BASHRC_TEMP_FILE='~/.bashrc'
 alias bash="bash --rcfile ${BASHRC_TEMP_FILE}"
