@@ -287,9 +287,25 @@ alias git-keep-synced="
 alias git-histall-sig="git log --pretty=format:\"%h %ad %G? |%d -----%s [%an]\" --graph --date=short --abbrev=4 --all"
 
 
- # vars
-export EDITOR='vim'
+# vars
+if which emacs ; then
+    export EDITOR='emacs'
+elif which vim ; then
+    export EDITOR='vim'
+else
+    export EDITOR='nano'
+fi
+
+create_bashrc_local_as_default () {
+    cat - > ~/.bashrc_local <<EOF
+EDITOR=nano
+EOF
+    
+}
 
 if [ -f ~/.bashrc_local ]; then
+    . ~/.bashrc_local
+else
+    create_bashrc_local_as_default
     . ~/.bashrc_local
 fi
