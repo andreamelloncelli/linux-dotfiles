@@ -204,11 +204,24 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+### functions
+# http://unix.stackexchange.com/questions/4290/aliasing-cd-to-pushd-is-it-a-good-idea
+pushd_fun()		       
+{
+  if [ $# -eq 0 ]; then
+    local DIR="${HOME}"
+  else
+    local DIR="$1"
+  fi
+
+  builtin pushd "${DIR}" > /dev/null
+}
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias cd='pushd'
+alias cd='pushd_fun'
 alias p='popd'
 
 # Add an "alert" alias for long running commands.  Use like so:
