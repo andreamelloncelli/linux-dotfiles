@@ -1,10 +1,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; generic
- ; it turns on some capabilities of cdlatex
+;; it turns on some capabilities of cdlatex
 (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
- ; it turns on visual-line-mode
+;; it turns on visual-line-mode
 (add-hook 'org-mode-hook 'visual-line-mode)
-
+;; cut, copy, paste with common keys (C-x) (C-c) (C-v)
+(cua-mode t)
+;; org coding
 (modify-coding-system-alist 'file "\\.org\\'" 'utf-8)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
