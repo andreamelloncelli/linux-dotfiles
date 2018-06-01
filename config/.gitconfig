@@ -1,0 +1,44 @@
+[alias]
+  hist        = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --abbrev=4
+  hist-sig    = log --pretty=format:\"%h %ad %G? | %s%d [%an]\" --graph --date=short --abbrev=4
+  histall     = log --pretty=format:\"%h %ad |%d -----%s [%an]\" --graph --date=short --abbrev=4 --all
+  histall-sig = log --pretty=format:\"%h %ad %G? |%d -----%s [%an]\" --graph --date=short --abbrev=4 --all
+  chistall    = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  type = cat-file -t
+  dump = cat-file -p
+
+[push]
+	default = simple
+[credential]
+	helper = store
+[http]
+	postBuffer = 524288000
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	required = true
+	clean = git-lfs clean -- %f
+
+################################################################
+## ediff
+## http://stackoverflow.com/questions/1817370/using-ediff-as-git-mergetool
+
+[mergetool.ediff]
+	cmd = emacs --eval \"\
+(progn\
+  (defun ediff-write-merge-buffer ()\
+    (let ((file ediff-merge-store-file))\
+      (set-buffer ediff-buffer-C)\
+      (write-region (point-min) (point-max) file)\
+      (message \\\"Merge buffer saved in: %s\\\" file)\
+      (set-buffer-modified-p nil)\
+      (sit-for 1)))\
+  (setq ediff-quit-hook 'kill-emacs\
+        ediff-quit-merge-hook 'ediff-write-merge-buffer)\
+  (ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\"\
+                                   \\\"$BASE\\\" nil \\\"$MERGED\\\"))\"
+
+[merge]
+        tool = ediff
+
+################################################################
+
