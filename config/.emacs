@@ -5,7 +5,7 @@
 ;; it turns on visual-line-mode
 (add-hook 'org-mode-hook 'visual-line-mode)
 ;; cut, copy, paste with common keys (C-x) (C-c) (C-v)
-(cua-mode t)
+(cua-mode 0)
 ;; org coding
 (modify-coding-system-alist 'file "\\.org\\'" 'utf-8)
 
