@@ -281,7 +281,7 @@ alias ga='git add '
 alias gb='git branch '
 alias gc='git commit'
 alias gd='git diff'
-alias gco='git checkout '
+alias gco=' git checkout '
 alias gk='gitk --all&'
 alias gx='gitx --all'
 alias glog='$EDITOR "$(git rev-parse --show-toplevel)"/git_partial_commit_gitign'
@@ -298,10 +298,14 @@ alias git-keep-synced="
       done"
  # git : bash only
 alias git-histall-sig="git log --pretty=format:\"%h %ad %G? |%d -----%s [%an]\" --graph --date=short --abbrev=4 --all"
+alias git-chist="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias git-chistall="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 
+ # docker
+alias docker-rmi-none="docker rmi \$(docker images |grep '^<none>'| awk '{print \$3}')" 
 
 # vars
-if which emacs ; then
+if which emacs > /dev/null; then
     export EDITOR='emacs'
 elif which vim ; then
     export EDITOR='vim'
