@@ -51,6 +51,13 @@ function git-branch-prompt {
 # PS1="\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ "
 ##}}}
 
+# Determine active Python virtualenv details.
+function git-venv-prompt {
+  if [ -n "$VIRTUAL_ENV" ]; then printf " (%s)" "$(basename "$VIRTUAL_ENV")"; fi
+}
+
+
+
 ##{{{ tmux functions
 tmux-panel () {
     tmux_win_name="${1}"
@@ -139,9 +146,11 @@ set_prompt () {
     LEFT_PROMPT+="$Blue\\w"      # full path
     #LEFT_PROMPT+="$Blue\\W"     # only parent directory
     # Add git repo
-    LEFT_PROMPT+="\$(git-branch-prompt) "
+    LEFT_PROMPT+="\$(git-branch-prompt)"
+    # Add venv
+    LEFT_PROMPT+="\$(git-venv-prompt) "
     # Color reset
-    LEFT_PROMPT+="\\n"           # add new line
+    #LEFT_PROMPT+="\\n"           # add new line
     LEFT_PROMPT+="\\\$$Reset "   # add $, reset color
     #RIGHT_PROMPT="\w \$(git-branch-prompt) "
     if [ -n "$RIGHT_PROMPT" ] ; then
@@ -300,6 +309,7 @@ alias git-keep-synced="
 alias git-histall-sig="git log --pretty=format:\"%h %ad %G? |%d -----%s [%an]\" --graph --date=short --abbrev=4 --all"
 alias git-chist="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias git-chistall="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
+alias git-trash-subdirs='for i in *; do git -C $i status |grep "Your branch is up to date" >> /dev/null && mv $i ~/canc/.; done;'
 
  # docker
 alias docker-rmi-none="docker rmi \$(docker images |grep '^<none>'| awk '{print \$3}')" 
