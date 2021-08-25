@@ -285,12 +285,23 @@ alias ttt="'tmux' new-session -s 0 '/bin/bash --rcfile ${BASHRC_TEMP_FILE}' \; \
 alias d='pwd'
 alias u='pwd'
  # git
+ # git autocomplete alias: https://stackoverflow.com/questions/9869227/git-autocomplete-in-bash-aliases
+if [ -f "/usr/share/bash-completion/completions/git" ]; then
+   source /usr/share/bash-completion/completions/git
+   __git_complete gco _git_checkout
+   __git_complete gc _git_commit
+   __git_complete gp _git_pull
+else
+	 echo "Error loading git completions"
+fi
 alias gs='git status '
+
 alias ga='git add '
 alias gb='git branch '
 alias gc='git commit'
 alias gd='git diff'
 alias gco=' git checkout '
+alias gp="git pull"
 alias gk='gitk --all&'
 alias gx='gitx --all'
 alias glog='$EDITOR "$(git rev-parse --show-toplevel)"/git_partial_commit_gitign'
