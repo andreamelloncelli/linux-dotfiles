@@ -341,6 +341,10 @@ EOF
     
 }
 
+if [ -f ~/.bashrc_user ]; then
+    . ~/.bashrc_user
+fi
+
 if [ -f ~/.bashrc_local ]; then
     . ~/.bashrc_local
 else

@@ -22,6 +22,9 @@
 	required = true
 	clean = git-lfs clean -- %f
 
+[include]
+	path = ~/.gitconfig_user
+
 ################################################################
 ## ediff
 ## http://stackoverflow.com/questions/1817370/using-ediff-as-git-mergetool
